@@ -1,3 +1,5 @@
+import Foundation
+
 public struct AuthyStore {
     
     public let key : String
