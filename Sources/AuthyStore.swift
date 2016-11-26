@@ -1,13 +1,17 @@
 import Foundation
 
+/// AuthyStore object that verifies phone numbers and authentication codes received via sms or Authy.
 public struct AuthyStore {
     
-    public let key : String
+    /// Authy private key
+    private let key : String
     
+    /// Initializer takes an Authy private key and sets up two-factor authentication.
     public init(key: String) {
         self.key = key
     }
     
+    /// Requests and sms token for a given phone number.
     public func requestSMS(countryCode: Int, phoneNumber: String, completionHandler: @escaping (Bool)->Void) {
         
         print("request SMS")
@@ -58,6 +62,7 @@ public struct AuthyStore {
         task.resume()
     }
     
+    /// Verifies a token for the phone number it was sent to via SMS.
     public func verify(countryCode: Int, phoneNumber: String, token: String, completionHandler: @escaping (Bool) -> Void) {
         
         let requestString = "https://api.authy.com/protected/json/phones/verification/check?phone_number=\(phoneNumber)&country_code=\(countryCode)&verification_code=\(token)"
